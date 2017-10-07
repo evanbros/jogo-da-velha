@@ -1,0 +1,8 @@
+#tabuleiro {
+  padding: 1em;
+  background-color: purple;
+  color: white;
+  font-family: monospace;
+  font-size: 16px;
+  height: 10em;
+}
