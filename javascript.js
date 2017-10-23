@@ -117,79 +117,21 @@ const calcularVencedor = () => {
 
 };
 
-let i, j;
+const criarHandlerParaMarcar = (i, j) => function () {
+  marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
+  calcularVencedor();
+  this.disabled = true;
+};
 
-botoes[0].addEventListener('click', function () {
-    i = 0;
-    j = 0;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[1].addEventListener('click', function () {
-    i = 0;
-    j = 1;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[2].addEventListener('click', function () {
-    i = 0;
-    j = 2;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[3].addEventListener('click', function () {
-    i = 1;
-    j = 0;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[4].addEventListener('click', function () {
-    i = 1;
-    j = 1;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[5].addEventListener('click', function () {
-    i = 1;
-    j = 2;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[6].addEventListener('click', function () {
-    i = 2;
-    j = 0;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[7].addEventListener('click', function () {
-    i = 2;
-    j = 1;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
-
-botoes[8].addEventListener('click', function () {
-    i = 2;
-    j = 2;
-    marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    calcularVencedor();
-    this.disabled = true;
-}, false);
+botoes[0].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
+botoes[1].addEventListener('click', criarHandlerParaMarcar(0, 1), false);
+botoes[2].addEventListener('click', criarHandlerParaMarcar(0, 2), false);
+botoes[3].addEventListener('click', criarHandlerParaMarcar(1, 0), false);
+botoes[4].addEventListener('click', criarHandlerParaMarcar(1, 1), false);
+botoes[5].addEventListener('click', criarHandlerParaMarcar(1, 2), false);
+botoes[6].addEventListener('click', criarHandlerParaMarcar(2, 0), false);
+botoes[7].addEventListener('click', criarHandlerParaMarcar(2, 1), false);
+botoes[8].addEventListener('click', criarHandlerParaMarcar(2, 2), false);
 
 exibirTabuleiro();
 
