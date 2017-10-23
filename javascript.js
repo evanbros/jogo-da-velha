@@ -17,9 +17,9 @@ const limparTabuleiro = () => {
   tabuleiro[2] = [ ' ', ' ', ' ' ];
 };
 
-const marcar = (i, j, char) => {
-  tabuleiro[i][j] = char;
-  ultimaJogada = char;
+const marcar = (i, j, jogada) => {
+  tabuleiro[i][j] = jogada;
+  ultimaJogada = jogada;
 };
 
 const calcularVencedor = () => {
@@ -69,6 +69,7 @@ const calcularVencedor = () => {
 // Aqui vai tudo responsável por exibir a aplicação para o usuário, bem como reagir às ações dele
 
 window.onload = function () {
+  // Botões de marcar
   const botoes = [
     document.getElementById('marcar-0-0'),
     document.getElementById('marcar-0-1'),
@@ -81,45 +82,11 @@ window.onload = function () {
     document.getElementById('marcar-2-2')
   ];
 
-  const exibirTabuleiro = () => {
-      let saida = tabuleiro.map(
-      linha => linha.join('|')
-      ).join('\n-+-+-\n');
-
-      let vencedor = calcularVencedor();
-
-      if (vencedor !== 'nenhum') {
-          saida += '\nVencedor: ' + vencedor;
-      }
-
-      document.getElementById('tabuleiro').innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
-  }
-
-  const atualizarBotoes = () => {
-    const vencedor = calcularVencedor();
-    if (vencedor !== 'nenhum') {
-      desabilitarBotoes();
-    }
-  };
-
   const criarHandlerParaMarcar = (i, j) => function () {
+    this.disabled = true;
     marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
     exibirTabuleiro();
-    calcularVencedor();
     atualizarBotoes();
-    this.disabled = true;
-  };
-
-  const habilitarBotoes = () => {
-    botoes.forEach(botao => {
-      botao.disabled = false;
-    });
-  };
-
-  const desabilitarBotoes = () => {
-    botoes.forEach(botao => {
-      botao.disabled = true;
-    });
   };
 
   botoes[0].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
@@ -132,13 +99,44 @@ window.onload = function () {
   botoes[7].addEventListener('click', criarHandlerParaMarcar(2, 1), false);
   botoes[8].addEventListener('click', criarHandlerParaMarcar(2, 2), false);
 
+  const mudarEstadoDosBotoes = estaoHabilitados => {
+    botoes.forEach(botao => {
+      botao.disabled = !estaoHabilitados;
+    });
+  };
+
+  const atualizarBotoes = () => {
+    const vencedor = calcularVencedor();
+    if (vencedor !== 'nenhum') {
+      mudarEstadoDosBotoes(false);
+    }
+  };
+
+  // Botão de novo jogo
+  const botaoNovoJogo = document.getElementById('novo-jogo');
+
+  botaoNovoJogo.addEventListener('click', function () {
+    limparTabuleiro();
+    exibirTabuleiro();
+    mudarEstadoDosBotoes(true);
+  }, false);
+
+  // Tela do tabuleiro
+  const telaTabuleiro = document.getElementById('tabuleiro');
+
+  const exibirTabuleiro = () => {
+    let saida = tabuleiro.map(
+      linha => linha.join('|')
+    ).join('\n-+-+-\n');
+
+    const vencedor = calcularVencedor();
+
+    if (vencedor !== 'nenhum') {
+      saida += '\nVencedor: ' + vencedor;
+    }
+
+    telaTabuleiro.innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
+  }
+
   exibirTabuleiro();
-
-  const nj = document.getElementById('nj');
-
-  nj.addEventListener('click', function (){
-      limparTabuleiro();
-      exibirTabuleiro();
-      habilitarBotoes();
-  },false);
 }
