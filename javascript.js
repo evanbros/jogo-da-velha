@@ -25,6 +25,13 @@ const exibirTabuleiro = () => {
     document.getElementById('tabuleiro').innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
 }
 
+const atualizarBotoes = () => {
+  const vencedor = calcularVencedor();
+  if (vencedor !== 'nenhum') {
+    desabilitarBotoes();
+  }
+};
+
 const limparTabuleiro = () => {
     tabuleiro[0] = [ ' ', ' ', ' ' ];
     tabuleiro[1] = [ ' ', ' ', ' ' ];
@@ -41,15 +48,6 @@ const calcularVencedor = () => {
     // Linha cheia
     for (let i = 0; i <= 2; ++i) {
         if (tabuleiro[i][0] === tabuleiro[i][1] && tabuleiro[i][1] === tabuleiro[i][2] && tabuleiro[i][0] !== ' ') {
-            botoes[0].disabled = true;
-            botoes[1].disabled = true;
-            botoes[2].disabled = true;
-            botoes[3].disabled = true;
-            botoes[4].disabled = true;
-            botoes[5].disabled = true;
-            botoes[6].disabled = true;
-            botoes[7].disabled = true;
-            botoes[8].disabled = true;
             return tabuleiro[i][0];
         }
     }
@@ -57,44 +55,17 @@ const calcularVencedor = () => {
     // Coluna cheia
     for (let j = 0; j <= 2; ++j) {
         if (tabuleiro[0][j] === tabuleiro[1][j] && tabuleiro[1][j] === tabuleiro[2][j] && tabuleiro[0][j] !== ' ') {
-            botoes[0].disabled = true;
-            botoes[1].disabled = true;
-            botoes[2].disabled = true;
-            botoes[3].disabled = true;
-            botoes[4].disabled = true;
-            botoes[5].disabled = true;
-            botoes[6].disabled = true;
-            botoes[7].disabled = true;
-            botoes[8].disabled = true;
             return tabuleiro[0][j];
         }
     }
 
     // Diagonal principal cheia
     if (tabuleiro[0][0] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][2] && tabuleiro[0][0] !== ' ') {
-        botoes[0].disabled = true;
-        botoes[1].disabled = true;
-        botoes[2].disabled = true;
-        botoes[3].disabled = true;
-        botoes[4].disabled = true;
-        botoes[5].disabled = true;
-        botoes[6].disabled = true;
-        botoes[7].disabled = true;
-        botoes[8].disabled = true;
         return tabuleiro[0][0];
     }
 
     // Diagonal inversa cheia
     if (tabuleiro[0][2] === tabuleiro[1][1] && tabuleiro[1][1] === tabuleiro[2][0] && tabuleiro[0][2] !== ' ') {
-        botoes[0].disabled = true;
-        botoes[1].disabled = true;
-        botoes[2].disabled = true;
-        botoes[3].disabled = true;
-        botoes[4].disabled = true;
-        botoes[5].disabled = true;
-        botoes[6].disabled = true;
-        botoes[7].disabled = true;
-        botoes[8].disabled = true;
         return tabuleiro[0][2];
     }
 
@@ -120,7 +91,20 @@ const calcularVencedor = () => {
 const criarHandlerParaMarcar = (i, j) => function () {
   marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
   calcularVencedor();
+  atualizarBotoes();
   this.disabled = true;
+};
+
+const habilitarBotoes = () => {
+  botoes.forEach(botao => {
+    botao.disabled = false;
+  });
+};
+
+const desabilitarBotoes = () => {
+  botoes.forEach(botao => {
+    botao.disabled = true;
+  });
 };
 
 botoes[0].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
@@ -140,15 +124,7 @@ const nj = document.getElementById('nj');
 nj.addEventListener('click', function (){
     limparTabuleiro();
     exibirTabuleiro();
-    botoes[0].disabled = false;
-    botoes[1].disabled = false;
-    botoes[2].disabled = false;
-    botoes[3].disabled = false;
-    botoes[4].disabled = false;
-    botoes[5].disabled = false;
-    botoes[6].disabled = false;
-    botoes[7].disabled = false;
-    botoes[8].disabled = false;
+    habilitarBotoes();
 },false);
 
 }
