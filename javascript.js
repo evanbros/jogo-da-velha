@@ -69,9 +69,17 @@ const calcularVencedor = () => {
 // Aqui vai tudo responsável por exibir a aplicação para o usuário, bem como reagir às ações dele
 
 window.onload = function () {
-  const botoes = document.querySelectorAll(
-    '#jogar1, #jogar2, #jogar3, #jogar4, #jogar5, #jogar6, #jogar7, #jogar8, #jogar9'
-  );
+  const botoes = [
+    document.getElementById('marcar-0-0'),
+    document.getElementById('marcar-0-1'),
+    document.getElementById('marcar-0-2'),
+    document.getElementById('marcar-1-0'),
+    document.getElementById('marcar-1-1'),
+    document.getElementById('marcar-1-2'),
+    document.getElementById('marcar-2-0'),
+    document.getElementById('marcar-2-1'),
+    document.getElementById('marcar-2-2')
+  ];
 
   const exibirTabuleiro = () => {
       let saida = tabuleiro.map(
