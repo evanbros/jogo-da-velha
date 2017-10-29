@@ -2,8 +2,8 @@
 // Aqui vão todas as variáveis que serão modificadas durante o andamento do jogo
 
 const tabuleiro = [
-  [ ' ', ' ', ' ' ],
-  [ ' ', ' ', ' ' ],
+  [ 'x', ' ', ' ' ],
+  [ ' ', 'o', ' ' ],
   [ ' ', ' ', ' ' ],
 ];
 let ultimaJogada;
@@ -70,7 +70,7 @@ const calcularVencedor = () => {
 
 window.onload = function () {
   // Botões de marcar
-  const botoes = [
+/*  const botoes = [
     document.getElementById('marcar-0-0'),
     document.getElementById('marcar-0-1'),
     document.getElementById('marcar-0-2'),
@@ -120,22 +120,55 @@ window.onload = function () {
     exibirTabuleiro();
     mudarEstadoDosBotoes(true);
   }, false);
-
+*/
   // Tela do tabuleiro
   const telaTabuleiro = document.getElementById('tabuleiro');
 
   const exibirTabuleiro = () => {
-    let saida = tabuleiro.map(
-      linha => linha.join('|')
-    ).join('\n-+-+-\n');
+    for (let i = 0; i < tabuleiro.length; i++) {
+      for (let j = 0; j < tabuleiro[i].length; j++) {
+        const x = [16, 49, 82][j];
+        const y = [16, 49, 82][i];
 
-    const vencedor = calcularVencedor();
+        const marcacaoAtual = document.querySelector("#marcacao-" + i + "-" + j);
+        
+        if (tabuleiro[i][j] === "x" && !marcacaoAtual) {
+          const marcacao = document.createElementNS("http://www.w3.org/2000/svg","use");
+          marcacao.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#x");
+          marcacao.setAttribute("x", x);
+          marcacao.setAttribute("y", y);
+          marcacao.setAttribute("id", "marcacao-" + i + "-" + j);
+           
+          telaTabuleiro.appendChild(marcacao);
+        }
+        else if (tabuleiro[i][j] === "o" && !marcacaoAtual) {
+          const marcacao = document.createElementNS("http://www.w3.org/2000/svg","use");
+          marcacao.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#o");
+          marcacao.setAttribute("x", x);
+          marcacao.setAttribute("y", y);
+          marcacao.setAttribute("id", "marcacao-" + i + "-" + j);
 
-    if (vencedor !== 'nenhum') {
-      saida += '\nVencedor: ' + vencedor;
+          telaTabuleiro.appendChild(marcacao);
+        }
+      }
     }
 
-    telaTabuleiro.innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
+    document.body.classList.add("vencedor");
+
+    document.getElementById("tela-vencedor").setAttribute("style", "height:150px");
+    
+
+    // let saida = tabuleiro.map(
+    //   linha => linha.join('|')
+    // ).join('\n-+-+-\n');
+
+    // const vencedor = calcularVencedor();
+
+    // if (vencedor !== 'nenhum') {
+    //   saida += '\nVencedor: ' + vencedor;
+    // }
+
+    // telaTabuleiro.innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
   }
 
   exibirTabuleiro();
