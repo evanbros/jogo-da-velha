@@ -2,8 +2,8 @@
 // Aqui vão todas as variáveis que serão modificadas durante o andamento do jogo
 
 const tabuleiro = [
-  [ 'x', ' ', ' ' ],
-  [ ' ', 'o', ' ' ],
+  [ ' ', ' ', ' ' ],
+  [ ' ', ' ', ' ' ],
   [ ' ', ' ', ' ' ],
 ];
 let ultimaJogada;
@@ -15,7 +15,36 @@ const limparTabuleiro = () => {
   tabuleiro[0] = [ ' ', ' ', ' ' ];
   tabuleiro[1] = [ ' ', ' ', ' ' ];
   tabuleiro[2] = [ ' ', ' ', ' ' ];
+
+  const elemento = [];
+  elemento[1] = document.getElementById('marcacao-0-0');
+  elemento[2] = document.getElementById('marcacao-0-1');
+  elemento[3] = document.getElementById('marcacao-0-2');
+  elemento[4] = document.getElementById('marcacao-1-0');
+  elemento[5] = document.getElementById('marcacao-1-1');
+  elemento[6] = document.getElementById('marcacao-1-2');
+  elemento[7] = document.getElementById('marcacao-2-0');
+  elemento[8] = document.getElementById('marcacao-2-1');
+  elemento[9] = document.getElementById('marcacao-2-2');
+  
+  for (var i = 1; i < 10; i++) {
+    if (elemento[i]) {
+      document.getElementById('tabuleiro').removeChild(elemento[i]);
+    }
+  }
 };
+
+const reiniciarTela = () => {
+  const telaVencedor = document.getElementById("tela-vencedor");
+
+  document.body.classList.remove("empate");
+  document.body.classList.remove("vencedor");
+  telaVencedor.setAttribute("style", "height:0px");
+  
+  for (var i = 1; i < 10 ; i++) {
+    document.getElementById(elemento = "t"+i).setAttribute('style', 'display:inline');  
+  }
+}
 
 const marcar = (i, j, jogada) => {
   tabuleiro[i][j] = jogada;
@@ -69,58 +98,36 @@ const calcularVencedor = () => {
 // Aqui vai tudo responsável por exibir a aplicação para o usuário, bem como reagir às ações dele
 
 window.onload = function () {
-  // Botões de marcar
-/*  const botoes = [
-    document.getElementById('marcar-0-0'),
-    document.getElementById('marcar-0-1'),
-    document.getElementById('marcar-0-2'),
-    document.getElementById('marcar-1-0'),
-    document.getElementById('marcar-1-1'),
-    document.getElementById('marcar-1-2'),
-    document.getElementById('marcar-2-0'),
-    document.getElementById('marcar-2-1'),
-    document.getElementById('marcar-2-2')
-  ];
-
-  const criarHandlerParaMarcar = (i, j) => function () {
-    this.disabled = true;
+  // Campos para marcação
+  const criarHandlerParaMarcar = (i, j) => function () { 
     marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
+    this.setAttribute('style', 'display:none');
     exibirTabuleiro();
-    atualizarBotoes();
   };
 
-  botoes[0].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
-  botoes[1].addEventListener('click', criarHandlerParaMarcar(0, 1), false);
-  botoes[2].addEventListener('click', criarHandlerParaMarcar(0, 2), false);
-  botoes[3].addEventListener('click', criarHandlerParaMarcar(1, 0), false);
-  botoes[4].addEventListener('click', criarHandlerParaMarcar(1, 1), false);
-  botoes[5].addEventListener('click', criarHandlerParaMarcar(1, 2), false);
-  botoes[6].addEventListener('click', criarHandlerParaMarcar(2, 0), false);
-  botoes[7].addEventListener('click', criarHandlerParaMarcar(2, 1), false);
-  botoes[8].addEventListener('click', criarHandlerParaMarcar(2, 2), false);
-
-  const mudarEstadoDosBotoes = estaoHabilitados => {
-    botoes.forEach(botao => {
-      botao.disabled = !estaoHabilitados;
-    });
-  };
-
-  const atualizarBotoes = () => {
-    const vencedor = calcularVencedor();
-    if (vencedor !== 'nenhum') {
-      mudarEstadoDosBotoes(false);
-    }
-  };
-
+  const selecionar = [];
+  for (var i = 1; i < 10; i++){
+    selecionar[i] = document.querySelector(seletor ="#t"+[i]);
+  }
+    selecionar[1].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
+    selecionar[2].addEventListener('click', criarHandlerParaMarcar(0, 1), false);
+    selecionar[3].addEventListener('click', criarHandlerParaMarcar(0, 2), false);
+    selecionar[4].addEventListener('click', criarHandlerParaMarcar(1, 0), false);
+    selecionar[5].addEventListener('click', criarHandlerParaMarcar(1, 1), false);
+    selecionar[6].addEventListener('click', criarHandlerParaMarcar(1, 2), false);
+    selecionar[7].addEventListener('click', criarHandlerParaMarcar(2, 0), false);
+    selecionar[8].addEventListener('click', criarHandlerParaMarcar(2, 1), false);
+    selecionar[9].addEventListener('click', criarHandlerParaMarcar(2, 2), false);
+  
   // Botão de novo jogo
   const botaoNovoJogo = document.getElementById('novo-jogo');
 
   botaoNovoJogo.addEventListener('click', function () {
+    reiniciarTela();
     limparTabuleiro();
     exibirTabuleiro();
-    mudarEstadoDosBotoes(true);
   }, false);
-*/
+
   // Tela do tabuleiro
   const telaTabuleiro = document.getElementById('tabuleiro');
 
@@ -153,22 +160,25 @@ window.onload = function () {
       }
     }
 
-    document.body.classList.add("vencedor");
+    // Verifica vencedor ou empate
+    const vencedor = calcularVencedor();
 
-    document.getElementById("tela-vencedor").setAttribute("style", "height:150px");
-    
-
-    // let saida = tabuleiro.map(
-    //   linha => linha.join('|')
-    // ).join('\n-+-+-\n');
-
-    // const vencedor = calcularVencedor();
-
-    // if (vencedor !== 'nenhum') {
-    //   saida += '\nVencedor: ' + vencedor;
-    // }
-
-    // telaTabuleiro.innerHTML = saida.replace(/ /g, '&nbsp;').replace(/\n/g, '<br />');
+    if (vencedor !== 'nenhum') {
+      if (vencedor === 'empate') {
+        document.body.classList.add("empate");
+        document.getElementById("tela-vencedor").setAttribute("style", "height:400px");
+      }
+      else{
+        if (vencedor === 'x') {
+          document.body.classList.add("vencedor");
+          document.getElementById("tela-vencedor").setAttribute("style", "height:400px");
+        }
+        else{
+          document.body.classList.add("vencedor");
+          document.getElementById("tela-vencedor").setAttribute("style", "height:400px");
+        }
+      }
+    }
   }
 
   exibirTabuleiro();

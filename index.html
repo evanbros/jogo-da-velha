@@ -16,8 +16,29 @@
 
     <main id="conteudo">
       <svg id="tela-vencedor" viewbox="0 0 400 200">
-        <path id="balao-vencedor" d="M50 100 L50 150  S50 170 70 170 L180 170 L190 190 L200 170 L330 170 S350 170 350 150 L350 50 S350 30 330 30 L70 30 S50 30 50 50  Z" fill="white" stroke="#13293d" />
-        <text x="100" y="110" font-family="Verdana" font-size="36">Parabéns X!</text>
+        <defs>
+          <filter id="sombra" x="-2" y="-2" width="28" height="28">
+            <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="1" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+          </filter>
+
+          <g id="x" filter="url(#sombra)">
+            <line x1="-10" y1="-10" x2="10" y2="10" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+            <line x1="-10" y1="10" x2="10" y2="-10" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+          </g>
+
+          <g id="o" filter="url(#sombra)">
+            <circle  cx="0" cy="0" r="10" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" />
+          </g>
+
+          <g id="touch">
+            <rect x="-12" y="-12" width="24" height="24" fill="transparent" />
+          </g>
+        </defs>
+
+        <path id="balao-vencedor" d="M50 100 L50 150  S50 170 70 170 L180 170 L190 190 L200 170 L330 170 S350 170 350 150 L350 50 S350 30 330 30 L70 30 S50 30 50 50  Z" fill="lightgray" stroke="#13293d" />
+        <text id="texto" x="100" y="110" style="fill: white; stroke: black; stroke-width: .5px;" font-size="36"></text>
       </svg>
       
       <svg id="tabuleiro" viewbox="0 0 100 100">
@@ -59,7 +80,7 @@
       </svg>
 
       <div id="opcoes">
-        <button type="button" onclick="alert('Clicado!')">Novo Jogo</button>
+        <button id="novo-jogo" type="button">Novo Jogo</button>
       </div>
     </main>
 

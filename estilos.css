@@ -8,7 +8,7 @@ body {
   font-family: 'Short Stack', sans-serif;
   background: #3e92cc;
   color: white;
-  text-shadow: 0 0 10px #18435a;
+  text-shadow: 1px 1px 3px black;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -26,7 +26,11 @@ a:hover {
 }
 
 .vencedor {
-  background: lightgreen;
+  background: pink;
+}
+
+.empate {
+  background: orange;
 }
 
 #header, #footer, #conteudo {
@@ -66,8 +70,9 @@ a:hover {
 }
 
 #conteudo #tela-vencedor{
-  width: 400px;
+  width: 800px;
   height: 0px;
   text-shadow: none;
   transition: height 1s ease-out;
+  position: absolute;
 }
