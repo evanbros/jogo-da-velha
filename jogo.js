@@ -42,7 +42,7 @@ const reiniciarTela = () => {
   telaVencedor.setAttribute("style", "height:0px");
   
   for (var i = 1; i < 10 ; i++) {
-    document.getElementById(elemento = "t"+i).setAttribute("style", "display:inline");  
+    document.getElementById(elemento = "t"+i).setAttribute('style', 'display:inline');  
   }
 }
 
@@ -99,25 +99,25 @@ const calcularVencedor = () => {
 
 window.onload = function () {
   // Campos para marcação
-  const criarHandlerParaMarcar = (i, j, touch) => function () { 
+  const criarHandlerParaMarcar = (i, j) => function () { 
     marcar(i, j, ultimaJogada === 'x' ? 'o' : 'x');
-    document.getElementById(touch).setAttribute("style", "display:none");
+    this.setAttribute('style', 'display:none');
     exibirTabuleiro();
   };
 
-  const click = [];
+  const selecionar = [];
   for (var i = 1; i < 10; i++){
-    click[i] = document.querySelector(seletor ="#t"+[i]);
+    selecionar[i] = document.querySelector(seletor ="#t"+[i]);
   }
-    click[1].addEventListener('click', criarHandlerParaMarcar(0, 0, "t1"), false);
-    click[2].addEventListener('click', criarHandlerParaMarcar(0, 1, "t2"), false);
-    click[3].addEventListener('click', criarHandlerParaMarcar(0, 2, "t3"), false);
-    click[4].addEventListener('click', criarHandlerParaMarcar(1, 0, "t4"), false);
-    click[5].addEventListener('click', criarHandlerParaMarcar(1, 1, "t5"), false);
-    click[6].addEventListener('click', criarHandlerParaMarcar(1, 2, "t6"), false);
-    click[7].addEventListener('click', criarHandlerParaMarcar(2, 0, "t7"), false);
-    click[8].addEventListener('click', criarHandlerParaMarcar(2, 1, "t8"), false);
-    click[9].addEventListener('click', criarHandlerParaMarcar(2, 2, "t9"), false);
+    selecionar[1].addEventListener('click', criarHandlerParaMarcar(0, 0), false);
+    selecionar[2].addEventListener('click', criarHandlerParaMarcar(0, 1), false);
+    selecionar[3].addEventListener('click', criarHandlerParaMarcar(0, 2), false);
+    selecionar[4].addEventListener('click', criarHandlerParaMarcar(1, 0), false);
+    selecionar[5].addEventListener('click', criarHandlerParaMarcar(1, 1), false);
+    selecionar[6].addEventListener('click', criarHandlerParaMarcar(1, 2), false);
+    selecionar[7].addEventListener('click', criarHandlerParaMarcar(2, 0), false);
+    selecionar[8].addEventListener('click', criarHandlerParaMarcar(2, 1), false);
+    selecionar[9].addEventListener('click', criarHandlerParaMarcar(2, 2), false);
   
   // Botão de novo jogo
   const botaoNovoJogo = document.getElementById('novo-jogo');
@@ -160,6 +160,7 @@ window.onload = function () {
       }
     }
 
+    // Verifica vencedor ou empate
     const vencedor = calcularVencedor();
 
     if (vencedor !== 'nenhum') {
