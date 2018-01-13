@@ -13,7 +13,7 @@ body {
   font-size: 4vh;
   background-color: #3e92cc;
   color: white;
-  text-shadow: 0 0 10px #18435a;
+  text-shadow: 1px 1px 3px #18435a;
   min-height: 100vh;
   max-height: 100vh;
   transition: background-color 1s linear;
@@ -23,7 +23,11 @@ body {
 }
 
 #jogo.vencedor {
-  background: lightgreen;
+  background: pink;
+}
+
+#jogo.empate {
+  background: orange;
 }
 
 #jogo a {

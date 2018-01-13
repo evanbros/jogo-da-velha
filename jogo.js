@@ -2,8 +2,8 @@
 // Aqui vão todas as variáveis que serão modificadas durante o andamento do jogo
 
 const tabuleiro = [
-  [ 'x', ' ', ' ' ],
-  [ ' ', 'o', ' ' ],
+  [ ' ', ' ', ' ' ],
+  [ ' ', ' ', ' ' ],
   [ ' ', ' ', ' ' ],
 ];
 let ultimaJogada;
@@ -69,6 +69,8 @@ const calcularVencedor = () => {
 // Aqui vai tudo responsável por exibir a aplicação para o usuário, bem como reagir às ações dele
 
 window.onload = function () {
+  const jogo = document.getElementById('jogo');
+
   const gatilhos = [
     document.getElementById('gatilho-0-0'),
     document.getElementById('gatilho-0-1'),
@@ -111,7 +113,6 @@ window.onload = function () {
   const atualizarTabuleiro = () => {
     const vencedor = calcularVencedor();
     if (vencedor !== 'nenhum') {
-      document.getElementById('jogo').classList.add('vencedor');
       mudarEstadoDosGatilhos(false);
     }
   };
@@ -123,6 +124,8 @@ window.onload = function () {
     limparTabuleiro();
     exibirTabuleiro();
     mudarEstadoDosGatilhos(true);
+
+    document.getElementById('jogo').classList.remove('empate');
     document.getElementById('jogo').classList.remove('vencedor');
   }, false);
 
@@ -155,6 +158,23 @@ window.onload = function () {
           telaTabuleiro.appendChild(marcacao);
         } else if (tabuleiro[i][j] === " " && marcacaoAtual) {
           telaTabuleiro.removeChild(marcacaoAtual);
+        }
+      }
+    }
+
+    // Verifica vencedor ou empate
+    const vencedor = calcularVencedor();
+
+    if (vencedor !== 'nenhum') {
+      if (vencedor === 'empate') {
+        jogo.classList.add("empate");
+      }
+      else{
+        if (vencedor === 'x') {
+          jogo.classList.add("vencedor");
+        }
+        else{
+          jogo.classList.add("vencedor");
         }
       }
     }
