@@ -10,19 +10,19 @@
 
   </head>
   <body>
-    <div id="game">
-      <div id="wrapper">
-        <header id="header">
+    <main id="jogo">
+      <div id="contentor">
+        <header id="cabecalho">
           <h1>Jogo da Velha</h1>
 
           <div id="menu">
-            <button type="button" id="btn-new-game">Novo Jogo</button>
+            <button type="button" id="btn-novo-jogo">Novo Jogo</button>
           </div>
         </header>
 
-        <main id="board">
-          <div id="board-inner">
-            <svg id="img-board" viewbox="0 0 100 100">
+        <section id="tabuleiro">
+          <div id="contentor-tabuleiro">
+            <svg id="svg-tabuleiro" viewbox="0 0 100 100">
               <defs>
                 <filter id="sombra" x="-2" y="-2" width="28" height="28">
                   <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
@@ -60,13 +60,13 @@
               <use id="t9" xlink:href="#touch" x="82" y="82" />
             </svg>
           </div>
-        </main>
+        </section>
       </div>
 
-      <footer id="footer">
+      <footer id="rodape">
         <p>Feito com <span class="fa fa-heart"></span> por <a href="https://github.com/evanbros">@evanbros</a>.</p>
       </footer>
-    </div>
+    </main>
 
     <script type="text/javascript" src="jogo.js"></script>
   </body>

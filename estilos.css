@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-#game {
+#jogo {
   flex: 1;
   font-family: 'Short Stack', sans-serif;
   font-size: 4vh;
@@ -22,21 +22,21 @@ body {
   flex-direction: column;
 }
 
-#game.vencedor {
+#jogo.vencedor {
   background: lightgreen;
 }
 
-#game a {
+#jogo a {
   color: #18435a;
   text-decoration: none;
   transition: all 400ms ease-in-out;
 }
 
-#game a:hover {
+#jogo a:hover {
   color: #2a628f;
 }
 
-#wrapper {
+#contentor {
   flex: 1;
 
   display: flex;
@@ -44,7 +44,7 @@ body {
   align-items: stretch;
 }
 
-#header {
+#cabecalho {
   padding: 1em;
   flex: 0;
 
@@ -52,7 +52,7 @@ body {
   flex-direction: column;
 }
 
-#header h1 {
+#cabecalho h1 {
   font-weight: normal;
   font-size: 1.5em;
   white-space: nowrap;
@@ -95,7 +95,7 @@ body {
   border: 0;
 }
 
-#board {
+#tabuleiro {
   flex: 1;
 
   display: flex;
@@ -104,14 +104,14 @@ body {
   align-items: stretch;
 }
 
-#board-inner {
+#contentor-tabuleiro {
   position: relative;
   padding-top: 100%;
   width: 100%;
   height: 0;
 }
 
-#img-board {
+#svg-tabuleiro {
   flex: 1;
   position: absolute;
   top: 10%;
@@ -120,12 +120,12 @@ body {
   height: 80%;
 }
 
-#footer {
+#rodape {
   font-size: 0.75em;
   text-align: center;
 }
 
-#footer .fa-heart {
+#rodape .fa-heart {
   color: red;
   text-shadow: 0 0 10px red;
   animation-name: heart-beat;
@@ -134,7 +134,7 @@ body {
 }
 
 @media screen and (max-aspect-ratio: 3/4) {
-  #wrapper {
+  #contentor {
     flex-direction: column;
   }
 
